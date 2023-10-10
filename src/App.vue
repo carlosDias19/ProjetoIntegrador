@@ -9,6 +9,8 @@
    <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
     <div class="container-fluid">
       <!-- Navbar brand -->
+      <img src="Logo.png" height="70" alt=""
+      loading="lazy" />
       <a class="navbar-brand nav-link" target="_blank" href="https://mdbootstrap.com/docs/standard/">
         <strong>MDB</strong>
       </a>
@@ -56,6 +58,7 @@
         </ul>
       </div>
     </div>
+    <hr style="color: #ffffff; background-color: #00000; height: 1px; margin-top: 5px;">
   </nav>
   <!-- Navbar -->
 
