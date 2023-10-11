@@ -14,13 +14,13 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@syncfusion/ej2-vue-grids": "^23.1.39",
-    "@vue-leaflet/vue-leaflet": "^0.10.1",
-    "leaflet": "^1.9.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.4",
+    "@vue-leaflet/vue-leaflet": "^0.10.1",
+    "leaflet": "^1.9.4",
     "vite": "^4.4.9"
   }
 }

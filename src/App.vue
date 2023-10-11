@@ -7,38 +7,38 @@ import HelloWorld from './components/HelloWorld.vue'
 
    <!-- Navbar -->
    <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
-    <div class="container-fluid">
-      <!-- Navbar brand -->
-      <img src="Logo.png" height="70" alt=""
-      loading="lazy" />
-      <a class="navbar-brand nav-link" target="_blank" href="https://mdbootstrap.com/docs/standard/">
-        <strong>Report Radar</strong>
-      </a>
-      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
-        aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarExample01">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item active">
-            <a class="nav-link" aria-current="page" href="#intro">Pagina Inícial</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" rel="nofollow"
-              target="_blank">Denúncias</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/docs/standard/" target="_blank">Mapa</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/docs/standard/" target="_blank">Sobre</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <hr style="color: #ffffff; background-color: #00000; height: 1px;">
-  </nav>
-  <!-- Navbar -->
+        <div class="container-fluid">
+        <!-- Navbar brand -->
+        <img src="Logo.png" height="70" alt=""
+        loading="lazy" />
+        <a class="navbar-brand nav-link" target="_blank" href="#">
+            <strong>Report Radar</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+            aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" aria-current="page" href="#">Pagina Inícial</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" rel="nofollow"
+                target="_blank">Denúncias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" target="_blank">Mapa</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" target="_blank">Sobre</a>
+            </li>
+            </ul>
+        </div>
+        </div>
+        <hr style="color: #ffffff; background-color: #00000; height: 1px;">
+    </nav>
+    <!-- Navbar -->
 
   <div class="app">
     <router-view></router-view>
