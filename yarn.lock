@@ -146,13 +146,13 @@
   resolved "https://registry.npmjs.org/@syncfusion/ej2-icons/-/ej2-icons-23.1.36.tgz"
   integrity sha512-Q7S50bOzXL9X46doNIGSGr61RCY/1RW9iz1U7yyARr2XBQhWnijk+t/FVBk1piR0nioRXbKQcPZOLiEo6zf1xw==
 
-"@syncfusion/ej2-inputs@~23.1.38":
-  version "23.1.38"
-  resolved "https://registry.npmjs.org/@syncfusion/ej2-inputs/-/ej2-inputs-23.1.38.tgz"
-  integrity sha512-5pKXvHVBTuyP4VSR8Su5SQAECoj24UZfUmlmYf5jfGmby6h2fph1mZZR8fdGFG3z8O933sc8RRsjGdFuaecoEA==
+"@syncfusion/ej2-inputs@~23.1.38", "@syncfusion/ej2-inputs@23.1.40":
+  version "23.1.40"
+  resolved "https://registry.npmjs.org/@syncfusion/ej2-inputs/-/ej2-inputs-23.1.40.tgz"
+  integrity sha512-p6urtcAwrnlYiOZt1/WfgDey5btpzv/EH51h5PxYkXlXKCdtFsVy2cJQPpN3v2h1MV3T8Klb5tn7+u6pSFmW9w==
   dependencies:
     "@syncfusion/ej2-base" "~23.1.38"
-    "@syncfusion/ej2-buttons" "~23.1.36"
+    "@syncfusion/ej2-buttons" "~23.1.39"
     "@syncfusion/ej2-popups" "~23.1.38"
     "@syncfusion/ej2-splitbuttons" "~23.1.36"
 
@@ -223,6 +223,15 @@
   dependencies:
     "@syncfusion/ej2-base" "~23.1.38"
     "@syncfusion/ej2-grids" "23.1.39"
+    "@syncfusion/ej2-vue-base" "~23.1.36"
+
+"@syncfusion/ej2-vue-inputs@^23.1.40":
+  version "23.1.40"
+  resolved "https://registry.npmjs.org/@syncfusion/ej2-vue-inputs/-/ej2-vue-inputs-23.1.40.tgz"
+  integrity sha512-8whLBFa2Nr1M4/1Wt/zPhxLehxCT55vx3IPlF1I26HwB76Ns4KKt5nlJIgXmscLF85TKe2xS15Zp/SXr17YDvw==
+  dependencies:
+    "@syncfusion/ej2-base" "~23.1.38"
+    "@syncfusion/ej2-inputs" "23.1.40"
     "@syncfusion/ej2-vue-base" "~23.1.36"
 
 "@vitejs/plugin-vue@^4.3.4":

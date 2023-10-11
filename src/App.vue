@@ -1,6 +1,22 @@
 <script>
-// import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import {RouterLink, RouterView} from 'vue-router'
+
+
+export default{
+    components:{
+        RouterLink, RouterView
+    },
+    data: function () {
+        return {
+        }
+    },
+    computed: {
+    },
+    methods: {
+    },
+    mounted: function () {
+    }
+}
 </script>
 
 <template>
@@ -11,7 +27,7 @@ import HelloWorld from './components/HelloWorld.vue'
         <!-- Navbar brand -->
         <img src="Logo.png" height="70" alt=""
         loading="lazy" />
-        <a class="navbar-brand nav-link" target="_blank" href="#">
+        <a class="navbar-brand nav-link" href="/">
             <strong>Report Radar</strong>
         </a>
         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
@@ -21,11 +37,10 @@ import HelloWorld from './components/HelloWorld.vue'
         <div class="collapse navbar-collapse" id="navbarExample01">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" aria-current="page" href="#">Pagina Inícial</a>
+                <a class="nav-link" href="/">Pagina Inícial</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" rel="nofollow"
-                target="_blank">Denúncias</a>
+                <a class="nav-link" aria-current="page" href="/denuncias">Denúncias</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" target="_blank">Mapa</a>
@@ -46,6 +61,8 @@ import HelloWorld from './components/HelloWorld.vue'
 
 </template>
 <style>
+  @import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+  @import "../node_modules/@syncfusion/ej2-vue-inputs/styles/material.css"; 
 /* Color of the links BEFORE scroll */
 .navbar-scroll .nav-link,
 .navbar-scroll .fa-bars,
