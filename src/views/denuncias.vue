@@ -24,7 +24,6 @@ export default {
     <div id="card" style="background-color: #ff716c; height:800px; width:800px;" class="card">
       <div class="card-body row">
 
-        <ejs-textbox id='textbox' floatLabelType="Auto" placeholder="First Name"></ejs-textbox>
 
       </div>
     </div>
@@ -32,8 +31,6 @@ export default {
 </template>
 
 <style>
- @import ".../";
-@import "../node_modules/@syncfusion/ej2-vue-inputs/styles/material.css"; 
 
 .wrap {
   box-sizing: border-box;
