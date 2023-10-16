@@ -20,17 +20,137 @@ export default {
 </script>
 
 <template>
-  <div class="d-flex justify-content-center">
-    <div id="card" style="background-color: #ff716c; height:800px; width:800px;" class="card">
-      <div class="card-body row">
 
+        <div class="box col-xs-12 col-sm-12 col-md-6 col-lg-6">
+          <form>
+              <span style="color:#ff716c" class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">Denúncia</span>
+              <p style="color:#000000; font-size: 12px; font-weight: bold;" class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">Campos com *, são obrigatórios.</p>
+            <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <input type="number" required=""/>
+              <label style="color:#000000">CEP da ocorrência: *</label>		
+            </div>
+            <div class="row">
+              <div class="input-container col-xs-12 col-sm-12 col-md-8 col-lg-8">		
+                <input type="text" required=""/>
+                <label style="color:#000000; margin-left:10px;">Endereço: *</label> 
+              </div>
+              <div class="input-container col-xs-12 col-sm-12 col-md-4 col-lg-4">		
+                <input type="number" required=""/>
+                <label style="color:#000000; margin-left:10px;">Numero: </label> 
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-container col-xs-12 col-sm-12 col-md-4 col-lg-4">		
+                <input type="text" required=""/>
+                <label style="color:#000000; margin-left:10px;">Estado: *</label> 
+              </div>
+              <div class="input-container col-xs-12 col-sm-12 col-md-8 col-lg-8">		
+                <input type="text" required=""/>
+                <label style="color:#000000; margin-left:10px;">Cidade: *</label> 
+              </div>
+            </div>
+            <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">		
+              <input type="text" required=""/>
+              <label style="color:#000000">Nome: </label> 
+            </div>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Selecione o tipo de crime *</option>
+              <option value="1">Crime1</option>
+              <option value="2">Crime2</option>
+              <option value="3">Crime3</option>
+            </select>
+              <div class="d-flex justify-content-center">
+                <button type="button" class="btn" >Enviar</button>
+              </div>
+          </form>	
+        </div>
 
-      </div>
-    </div>
-  </div>
 </template>
 
 <style>
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&subset=greek-ext');
+
+body{
+	background-position: center;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    background-size: cover;
+	min-height:100vh;
+	font-family: 'Noto Sans', sans-serif;
+}
+.text-center{
+	color:#fff;	
+	text-transform:uppercase;
+    font-size: 23px;
+    margin: -50px 0 80px 0;
+    display: block;
+    text-align: center;
+}
+.box{
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform: translate(-50%,-50%);
+    background-color: #fff;
+	border-radius:3px;
+	padding:70px 100px;
+}
+.input-container{
+	position:relative;
+	margin-bottom:25px;
+}
+.input-container label{
+	position:absolute;
+	top:0px;
+	left:0px;
+	font-size:16px;
+	color:#fff;	
+  pointer-events:none;
+	transition: all 0.5s ease-in-out;
+}
+.input-container input{ 
+  border:0;
+  border-bottom:1px solid #555;  
+  background:transparent;
+  width:100%;
+  padding:8px 0 5px 0;
+  font-size:16px;
+  color:#000000;
+}
+.input-container input:focus{ 
+ border:none;	
+ outline:none;
+ border-bottom:1px solid #e74c3c;	
+}
+.btn{
+	color:#fff;
+	background-color:#e74c3c;
+	outline: none;
+    border: 0;
+    color: #fff;
+	padding:10px 20px;
+	text-transform:uppercase;
+	margin-top:50px;
+	border-radius:2px;
+	cursor:pointer;
+	position:relative;
+}
+/*.btn:after{
+	content:"";
+	position:absolute;
+	background:rgba(0,0,0,0.50);
+	top:0;
+	right:0;
+	width:100%;
+	height:100%;
+}*/
+.input-container input:focus ~ label,
+.input-container input:valid ~ label{
+	top:-12px;
+	font-size:12px;
+	
+}
 
 .wrap {
   box-sizing: border-box;
