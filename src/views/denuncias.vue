@@ -8,11 +8,62 @@ export default {
   },
   data: function () {
     return {
+      dadosManipulando:{
+        CEP: null,
+        ENDERECO: null,
+        NUMERO: null,
+        ESTADO: null,
+        CIDADE: null,
+        NOME: null,
+        TIPOCRIME: null,
+        BAIRRO: null,
+        COMPLEMENTO: null
+      },
     }
   },
   computed: {
   },
   methods: {
+    gravarModal(){
+      console.log('aqui')
+    },
+    // onChange(args){
+    //   console.log(args)
+    //   const cep = this.dadosManipulando.CEP
+    //   const jsonEndereco = `https://viacep.com.br/ws/${cep}/json/`
+    //   console.log(jsonEndereco)
+    // },
+    async onChange(args) {
+      const cep = this.dadosManipulando.CEP
+      if(cep == "" || cep == null){
+        this.limparDadosManipulando();
+      }
+      try {
+        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+        console.log(response.data)
+        this.dadosManipulando.ENDERECO = response.data.logradouro;
+        this.dadosManipulando.CIDADE = response.data.localidade
+        this.dadosManipulando.ESTADO = response.data.uf
+        this.dadosManipulando.BAIRRO = response.data.bairro
+        this.dadosManipulando.COMPLEMENTO = response.data.complemento
+      } catch (error) {
+        console.error("Erro ao buscar dados do CEP", error);
+      }
+    },
+
+    limparDadosManipulando(){
+      this.dadosManipulando = {
+        CEP: null,
+        ENDERECO: null,
+        NUMERO: null,
+        ESTADO: null,
+        CIDADE: null,
+        NOME: null,
+        TIPOCRIME: null,
+        BAIRRO: null,
+        COMPLEMENTO: null
+      }
+    }
   },
   mounted: function () {
   }
@@ -21,46 +72,56 @@ export default {
 
 <template>
 
-        <div class="box col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="box col-xs-12 col-sm-12 col-md-6 col-lg-6 mt-5 ">
           <form>
               <span style="color:#ff716c" class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">Denúncia</span>
               <p style="color:#000000; font-size: 12px; font-weight: bold;" class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">Campos com *, são obrigatórios.</p>
             <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <input type="number" required=""/>
+              <input @change="onChange" v-model="dadosManipulando.CEP" type="number" required=""/>
               <label style="color:#000000">CEP da ocorrência: *</label>		
             </div>
             <div class="row">
               <div class="input-container col-xs-12 col-sm-12 col-md-8 col-lg-8">		
-                <input type="text" required=""/>
+                <input v-model="dadosManipulando.ENDERECO" type="text" required=""/>
                 <label style="color:#000000; margin-left:10px;">Endereço: *</label> 
               </div>
               <div class="input-container col-xs-12 col-sm-12 col-md-4 col-lg-4">		
-                <input type="number" required=""/>
+                <input v-model="dadosManipulando.NUMERO" type="number" required=""/>
                 <label style="color:#000000; margin-left:10px;">Numero: </label> 
               </div>
             </div>
             <div class="row">
+              <div class="input-container col-xs-12 col-sm-12 col-md-6 col-lg-6">		
+                <input v-model="dadosManipulando.BAIRRO" type="text" required=""/>
+                <label style="color:#000000; margin-left:10px;">Bairro: </label> 
+              </div>
+              <div class="input-container col-xs-12 col-sm-12 col-md-6 col-lg-6">		
+                <input v-model="dadosManipulando.COMPLEMENTO" type="text" required=""/>
+                <label style="color:#000000; margin-left:10px;">Complemento: </label> 
+              </div>
+            </div>
+            <div class="row">
               <div class="input-container col-xs-12 col-sm-12 col-md-4 col-lg-4">		
-                <input type="text" required=""/>
+                <input v-model="dadosManipulando.ESTADO" type="text" required=""/>
                 <label style="color:#000000; margin-left:10px;">Estado: *</label> 
               </div>
               <div class="input-container col-xs-12 col-sm-12 col-md-8 col-lg-8">		
-                <input type="text" required=""/>
+                <input v-model="dadosManipulando.CIDADE" type="text" required=""/>
                 <label style="color:#000000; margin-left:10px;">Cidade: *</label> 
               </div>
             </div>
             <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">		
-              <input type="text" required=""/>
+              <input v-model="dadosManipulando.NOME" type="text" required=""/>
               <label style="color:#000000">Nome: </label> 
             </div>
-            <select class="form-select" aria-label="Default select example">
+            <select v-model="dadosManipulando.TIPOCRIME" class="form-select" aria-label="Default select example">
               <option selected>Selecione o tipo de crime *</option>
               <option value="1">Crime1</option>
               <option value="2">Crime2</option>
               <option value="3">Crime3</option>
             </select>
               <div class="d-flex justify-content-center">
-                <button type="button" class="btn" >Enviar</button>
+                <button @click="gravarModal" type="button" class="btn" >Enviar</button>
               </div>
           </form>	
         </div>

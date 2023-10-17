@@ -4,7 +4,7 @@
       <!--Primeiro paragrafo da pagina-->
 
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
-            <h1 style="font-size: 20px; color: white; margin-top: 5px;">O Report Radar expõe as informações armazenadas no sistema de forma que facilite e agilize o entendimento. O sistema conta com mapas que mostram as maiores incidências de crimes, <br>permitindo a população e os agente de segurança encontre a localização de uma ocorrência facilmente.</h1>
+            <h1 style="font-size: 20px; color: white; margin-top: 5px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspO intuito do Report Radar é conta com mapas que mostram incidências de crimes, mantendo a população e os agentes de segurança informados, fazendo com que encontre a localização de uma ocorrência facilmente.</h1>
           </div>
 
       
