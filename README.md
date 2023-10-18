@@ -1,5 +1,18 @@
 # ProjetoIntegrador
 
+GRUPO:
+
+  Carlos Eduardo Dias de Oliveira RA:1930548
+  Pedro Henrique Sartori Zilio RA:1944971
+  Luan Patrick Medeiros Alves RA:1943909
+  Lucas Gabriel dos Santos RA:
+
+
+
+
+
+
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
