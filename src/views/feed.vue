@@ -4,7 +4,7 @@
       <!--Primeiro paragrafo da pagina-->
 
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
-            <h1 style="font-size: 20px; color: white; margin-top: 5px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspO intuito do Report Radar é conta com mapas que mostram incidências de crimes, mantendo a população e os agentes de segurança informados, fazendo com que encontre a localização de uma ocorrência facilmente.</h1>
+            <h1 style="font-size: 20px; color: white; margin-top: 5px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspO Report Radar conta com mapas que mostram incidências de crimes, onde o objetivo é proporcionar uma maior segurança e apoio aos usuários, mantendo-os &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinformados e fazendo com que encontre a localização de uma ocorrência com uma maior facilidade.</h1>
           </div>
 
       
@@ -18,7 +18,7 @@
             <div class="col-md-1"></div>
             <div style="color: white; margin-top: 100px; margin-left: 50px;" class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
               <h1 style="color: #ff716c;"><strong>MAPA CLUSTER</strong></h1>
-              <p>Neste mapa o sistema faz um agrupamento das ocorrências de determinadas regiões e apresenta indicadores com cores diferentes – a qual varia pela quantidade de ocorrências registradas na localidade. 
+              <p>Neste mapa o sistema faz um agrupamento das ocorrências de determinadas regiões e apresenta indicadores com cores diferentes, onde varia pela quantidade de ocorrências registradas na localidade. 
                 Estas cores facilitam o entendimento e expõem exatamente a quantidade de ocorrências que foram registradas.</p>
             </div>
           </div>

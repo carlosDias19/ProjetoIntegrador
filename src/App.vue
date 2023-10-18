@@ -26,7 +26,7 @@ export default{
    <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
         <div class="container-fluid">
         <!-- Navbar brand -->
-        <img src="Logo.png" height="70" alt=""
+        <img src="Logo.png" height="100" alt=""
         loading="lazy" />
         <a class="navbar-brand nav-link" href="/">
             <strong>Report Radar</strong>

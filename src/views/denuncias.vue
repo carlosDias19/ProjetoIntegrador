@@ -19,6 +19,7 @@ export default {
         BAIRRO: null,
         COMPLEMENTO: null
       },
+      maxDigits: 8
     }
   },
   computed: {
@@ -27,17 +28,20 @@ export default {
     gravarModal(){
       console.log('aqui')
     },
-    // onChange(args){
-    //   console.log(args)
-    //   const cep = this.dadosManipulando.CEP
-    //   const jsonEndereco = `https://viacep.com.br/ws/${cep}/json/`
-    //   console.log(jsonEndereco)
-    // },
     async onChange(args) {
       const cep = this.dadosManipulando.CEP
       if(cep == "" || cep == null){
         this.limparDadosManipulando();
       }
+
+      setTimeout(() => { 
+        if (this.dadosManipulando.CEP.toString().length > this.maxDigits) {
+          this.limparDadosManipulando();
+          // Limite o número de dígitos
+          this.dadosManipulando.CEP = parseInt(this.dadosManipulando.CEP.toString().slice(0, this.maxDigits));
+        }
+      }, 100);
+
       try {
         const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
         console.log(response.data)
@@ -77,7 +81,7 @@ export default {
               <span style="color:#ff716c" class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">Denúncia</span>
               <p style="color:#000000; font-size: 12px; font-weight: bold;" class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">Campos com *, são obrigatórios.</p>
             <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <input @change="onChange" v-model="dadosManipulando.CEP" type="number" required=""/>
+              <input @change="onChange" maxlength="maxCharacters" v-model="dadosManipulando.CEP" type="number" required=""/>
               <label style="color:#000000">CEP da ocorrência: *</label>		
             </div>
             <div class="row">
