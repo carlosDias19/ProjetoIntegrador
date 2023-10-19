@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     gravarModal(){
-      console.log('aqui')
+      console.log(this.dadosManipulando)
     },
     async onChange(args) {
       const cep = this.dadosManipulando.CEP
@@ -39,6 +39,7 @@ export default {
           this.limparDadosManipulando();
           // Limite o número de dígitos
           this.dadosManipulando.CEP = parseInt(this.dadosManipulando.CEP.toString().slice(0, this.maxDigits));
+          alert("CEP invalido.");
         }
       }, 100);
 
@@ -51,7 +52,7 @@ export default {
         this.dadosManipulando.BAIRRO = response.data.bairro
         this.dadosManipulando.COMPLEMENTO = response.data.complemento
       } catch (error) {
-        console.error("Erro ao buscar dados do CEP", error);
+        alert("CEP inválido", error);
       }
     },
 

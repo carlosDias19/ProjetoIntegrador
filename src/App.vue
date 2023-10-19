@@ -44,7 +44,7 @@ export default{
                 <a class="nav-link" aria-current="page" href="/denuncias">Denúncias</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" target="_blank">Mapa</a>
+                <a class="nav-link" aria-current="page" href="/mapa" >Mapa</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" target="_blank">Sobre</a>
