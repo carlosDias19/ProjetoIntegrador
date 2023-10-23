@@ -17,7 +17,9 @@ export default {
         NOME: null,
         TIPOCRIME: null,
         BAIRRO: null,
-        COMPLEMENTO: null
+        COMPLEMENTO: null,
+        LATITUDE: null,
+        LONGITUDE: null,
       },
       maxDigits: 8
     }
@@ -26,7 +28,32 @@ export default {
   },
   methods: {
     gravarModal(){
-      console.log(this.dadosManipulando)
+      if(this.dadosManipulando.CEP == null || this.dadosManipulando.CEP == ""){
+        alert("Preencha o CEP.");
+      } else if (this.dadosManipulando.ENDERECO == null || this.dadosManipulando.ENDERECO == ""){
+        alert("Preencha o endereço.")
+      } else if (this.dadosManipulando.BAIRRO == null || this.dadosManipulando.BAIRRO == ""){
+        alert("Preencha o bairro.")
+      } else if(this.dadosManipulando.ESTADO == null || this.dadosManipulando.ESTADO == ""){
+        alert("Preencha o Estado.")
+      } else if(this.dadosManipulando.CIDADE == null || this.dadosManipulando.CIDADE == ""){
+        alert("Preencha a Cidade.")
+      } else if(this.dadosManipulando.TIPOCRIME == null || this.dadosManipulando.TIPOCRIME == ""){
+        alert("Selecione o tipo de crime.")
+      }
+      else{
+        const cep = this.dadosManipulando.CEP
+        try {
+          const response = axios.get(`https://cep.awesomeapi.com.br/json/${cep}`)
+          .then(res => {
+            this.dadosManipulando.LATITUDE = res.data.lat
+            this.dadosManipulando.LONGITUDE = res.data.lng
+          });
+        } catch (error) {
+          alert("Erro ao gravar denuncia.", error);
+        }
+        console.log(this.dadosManipulando)
+      }
     },
     async onChange(args) {
       const cep = this.dadosManipulando.CEP
@@ -45,7 +72,6 @@ export default {
 
       try {
         const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-        console.log(response.data)
         this.dadosManipulando.ENDERECO = response.data.logradouro;
         this.dadosManipulando.CIDADE = response.data.localidade
         this.dadosManipulando.ESTADO = response.data.uf
@@ -115,10 +141,11 @@ export default {
                 <label style="color:#000000; margin-left:10px;">Cidade: *</label> 
               </div>
             </div>
-            <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">		
-              <input v-model="dadosManipulando.NOME" type="text" required=""/>
-              <label style="color:#000000">Nome: </label> 
-            </div>
+              <div class="input-group mb-3">
+                <div class="input-group-text">
+                  <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">&nbsp&nbsp&nbspDeseja denuciar anonimamente ?
+                </div>
+              </div>
             <select v-model="dadosManipulando.TIPOCRIME" class="form-select" aria-label="Default select example">
               <option selected>Selecione o tipo de crime *</option>
               <option value="1">Crime1</option>
@@ -136,6 +163,11 @@ export default {
 <style>
 
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&subset=greek-ext');
+
+.form-check-input:checked {
+  background-color: #fd0d0d;
+  border-color: #212529;
+}
 
 body{
 	background-position: center;
