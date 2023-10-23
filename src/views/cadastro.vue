@@ -9,6 +9,7 @@ export default {
   },
   data: function () {
     return {
+      siteKey: '6Lc8p8MoAAAAAIMVollcJEGcqYLS8t5M1mIQA3kY',
       dadosManipulando:{
         NOME: null,
         EMAIL: null,
@@ -25,37 +26,65 @@ export default {
     }
   },
   mounted: function () {
-
+    const script = document.createElement('script');
+    script.src = 'https://www.google.com/recaptcha/api.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
   }
 }
 </script>
 
 <template>
 
-<div class="box col-xs-12 col-sm-12 col-md-6 col-lg-3 mt-5 ">
-          <form>
-              <span style="color:#ff716c" class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">Cadastro de Usuário</span>
-            <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <input maxlength="maxCharacters" v-model="dadosManipulando.NOME" type="text" required=""/>
-              <label style="color:#000000">Nome: </label>		
-            </div>
-              <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">		
-                <input v-model="dadosManipulando.EMAIL" type="text" required=""/>
-                <label style="color:#000000; ">Email: </label> 
-              </div>
-              <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">		
-                <input v-model="dadosManipulando.SENHA" type="password" required=""/>
-                <label style="color:#000000;">Senha: </label> 
-              </div>
-              <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">		
-                <input v-model="dadosManipulando.CONFIRMARSENHA" type="password" required=""/>
-                <label style="color:#000000; ">Confirmar Senha: </label>
-              </div>
-              <div class="d-flex justify-content-center">
-                <button @click="gravarModal" type="button" class="btn" >Cadastrar</button>
-              </div>
-          </form>	
+  <section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="/LogoCompleta.jpeg"
+            class="img-fluid" alt="Logo">
         </div>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form>
+
+            <div class="form-outline mb-4">
+              <input type="email" id="email" class="form-control form-control-lg"
+                placeholder="E-mail" />
+              <label class="form-label" for="email">E-mail</label>
+            </div>
+  
+            <div class="form-outline mb-3">
+              <input type="password" id="senha" class="form-control form-control-lg"
+                placeholder="Senha" />
+              <label class="form-label" for="senha">Senha</label>
+            </div>
+
+            <div class="form-outline mb-3">
+              <input type="password" id="confirmarSenha" class="form-control form-control-lg"
+                placeholder="Confime sua senha" />
+              <label class="form-label" for="confirmarSenha">Confime sua senha</label>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input type="text" id="nomeCompleto" class="form-control form-control-lg"
+                placeholder="Nome Completo" />
+              <label class="form-label" for="nomeCompleto">Nome Completo</label>
+            </div>
+
+            <div class="row mt-3">
+              <div class="g-recaptcha" :data-sitekey="siteKey"></div>
+            </div>  
+
+            <div class="text-center text-lg-start mt-2 pt-2">
+              <button type="button" class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;">Regitrar-se</button>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </template>
 

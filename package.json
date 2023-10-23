@@ -17,6 +17,7 @@
     "@syncfusion/ej2-vue-inputs": "^23.1.40",
     "axios": "^1.5.1",
     "vue": "^3.3.4",
+    "vue-recaptcha-v3": "^2.0.1",
     "vue-router": "^4.2.4"
   },
   "devDependencies": {

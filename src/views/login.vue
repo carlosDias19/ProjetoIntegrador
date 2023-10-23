@@ -7,6 +7,7 @@ export default {
   },
   data: function () {
     return {
+      siteKey: '6Lc8p8MoAAAAAIMVollcJEGcqYLS8t5M1mIQA3kY',
       dadosManipulando:{
         NOME: null,
         EMAIL: null,
@@ -23,32 +24,61 @@ export default {
     }
   },
   mounted: function () {
-
+    const script = document.createElement('script');
+    script.src = 'https://www.google.com/recaptcha/api.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
   }
 }
 </script>
 
 <template>
 
-        <div class="box col-xs-12 col-sm-12 col-md-6 col-lg-3 mt-5 ">
-          <form>
-              <span style="color:#ff716c" class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">Login</span>
-              <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <input maxlength="maxCharacters" v-model="dadosManipulando.NOME" type="text" required=""/>
-                <label style="color:#000000">Email: </label>		
-              </div>
-              <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">		
-                <input v-model="dadosManipulando.SENHA" type="password" required=""/>
-                <label style="color:#000000;">Senha: </label> 
-              </div>
-              <div class="d-flex justify-content-center">
-                <button @click="gravarModal" type="button" class="btn" >Entrar</button>
-              </div>
-              <div class="row">
-                <a class="col-md-12 d-flex justify-content-center mt-3">Cadastre-se</a>
-              </div>
-          </form>	
+  <section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="/LogoCompleta.jpeg"
+            class="img-fluid" alt="Logo">
         </div>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="email" id="form3Example3" class="form-control form-control-lg"
+                placeholder="Entre com um email valido" />
+              <label class="form-label" for="form3Example3">Email</label>
+            </div>
+  
+            <!-- Password input -->
+            <div class="form-outline mb-3">
+              <input type="password" id="form3Example4" class="form-control form-control-lg"
+                placeholder="Entre com sua senha" />
+              <label class="form-label" for="form3Example4">Senha</label>
+            </div>
+  
+            <div class="d-flex justify-content-between align-items-center">
+              <!-- Checkbox -->
+              <a href="#!" class="text-body">Esqueceu a senha?</a>
+            </div>
+
+            <div class="row mt-3">
+              <div class="g-recaptcha" :data-sitekey="siteKey"></div>
+            </div>  
+            
+            <div class="text-center text-lg-start mt-2 pt-2">
+              <button type="button" class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;">Entrar</button>
+              <p class="small fw-bold mt-2 pt-1 mb-0">Ainda não tem uma conta? <a href="/cadastro"
+                  class="link-danger">Registre-se</a></p>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </template>
 
