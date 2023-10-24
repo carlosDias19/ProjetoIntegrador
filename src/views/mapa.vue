@@ -1,11 +1,12 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
+import navBar from '../components/navBar.vue'
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from "@vue-leaflet/vue-leaflet";
 
 export default {
   components: {
-    RouterLink, RouterView, LMap, LTileLayer, LMarker, LPopup, LTooltip
+    RouterLink, RouterView, LMap, LTileLayer, LMarker, LPopup, LTooltip, navBar
   },
   data: function () {
     return {
@@ -42,7 +43,7 @@ export default {
 </script>
 
 <template>
-
+        <navBar></navBar>
         <div class="row col-12 d-flex justify-content-center">
           <div class="mt-4 col-3">
             <span style='color:white;'>Filtro de estado</span>

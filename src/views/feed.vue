@@ -1,4 +1,7 @@
 <template>
+
+    
+    <navBar></navBar>
     <div>
 
       <!--Primeiro paragrafo da pagina-->
@@ -122,13 +125,15 @@
 <script>
   import "leaflet/dist/leaflet.css";
   import { LMap, LTileLayer, LMarker, LPopup } from "@vue-leaflet/vue-leaflet";
+  import navBar from '../components/navBar.vue'
 
   export default {
     components: {
       LMap,
       LTileLayer,
       LMarker,
-      LPopup
+      LPopup,
+      navBar
     },
     data() {
       return {

@@ -1,10 +1,11 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
 import { TextBoxComponent as EjsTextbox } from '@syncfusion/ej2-vue-inputs';
+import navBar from '../components/navBar.vue'
 
 export default {
   components: {
-    RouterLink, RouterView, EjsTextbox
+    RouterLink, RouterView, EjsTextbox, navBar
   },
   data: function () {
     return {
@@ -102,7 +103,7 @@ export default {
 </script>
 
 <template>
-
+        <navBar></navBar>
         <div class="box col-xs-12 col-sm-12 col-md-6 col-lg-6 mt-5 ">
           <form>
               <span style="color:#ff716c" class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">Denúncia</span>
