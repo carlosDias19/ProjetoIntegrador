@@ -1,6 +1,6 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-import navBar from '../components/navBar.vue'
+import navBar from '../components/navBar.vue' //ddddd
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from "@vue-leaflet/vue-leaflet";
 
