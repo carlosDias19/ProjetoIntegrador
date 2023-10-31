@@ -9,16 +9,23 @@ export default {
     return {
       siteKey: '6Lc8p8MoAAAAAIMVollcJEGcqYLS8t5M1mIQA3kY',
       dadosManipulando:{
-        NOME: null,
         EMAIL: null,
-        SENHA: null,
-        CONFIRMARSENHA: null,
+        SENHA: null
       }
     }
   },
   computed: {
   },
   methods: {
+    login(){
+      axios.post(`https://localhost:7127/api/Auth?Email=${this.dadosManipulando.EMAIL}&Senha=${this.dadosManipulando.SENHA}`).then(response => {
+          console.log(response);
+          //window.location.href = "/";
+      })
+      .catch(error => {
+        alert("Email ou Senha Invalido.")
+      });
+    },
     gravarModal(){
 
     }
@@ -46,14 +53,14 @@ export default {
           <form>
             <!-- Email input -->
             <div class="form-outline mb-4">
-              <input type="email" id="form3Example3" class="form-control form-control-lg"
+              <input v-model="dadosManipulando.EMAIL" type="email" id="form3Example3" class="form-control form-control-lg"
                 placeholder="Entre com um email valido" />
               <label class="form-label" for="form3Example3">Email</label>
             </div>
   
             <!-- Password input -->
             <div class="form-outline mb-3">
-              <input type="password" id="form3Example4" class="form-control form-control-lg"
+              <input v-model="dadosManipulando.SENHA" type="password" id="form3Example4" class="form-control form-control-lg"
                 placeholder="Entre com sua senha" />
               <label class="form-label" for="form3Example4">Senha</label>
             </div>
@@ -68,7 +75,7 @@ export default {
             </div>  
             
             <div class="text-center text-lg-start mt-2 pt-2">
-              <button type="button" class="btn btn-primary btn-lg"
+              <button type="button" class="btn btn-primary btn-lg" @click="login"
                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Entrar</button>
               <p class="small fw-bold mt-2 pt-1 mb-0">Ainda não tem uma conta? <a href="/cadastro"
                   class="link-danger">Registre-se</a></p>

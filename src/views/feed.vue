@@ -7,7 +7,7 @@
       <!--Primeiro paragrafo da pagina-->
 
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
-            <h1 style="font-size: 20px; color: white; margin-top: 5px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspO Report Radar conta com mapas que mostram incidências de crimes, onde o objetivo é proporcionar uma maior segurança e apoio aos usuários, mantendo-os &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinformados e fazendo com que encontre a localização de uma ocorrência com uma maior facilidade.</h1>
+            <h1 style="font-size: 20px; color: white; margin-top: 5px;">O Report Radar conta com mapas que mostram incidências de crimes, onde o objetivo é proporcionar uma maior segurança e apoio aos usuários, mantendo-os informados e fazendo com que encontre a localização de uma ocorrência com uma maior facilidade.</h1>
           </div>
 
       
