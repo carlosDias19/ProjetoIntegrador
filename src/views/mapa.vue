@@ -10,6 +10,8 @@ export default {
   },
   data: function () {
     return {
+      estados: [],
+      tipoDeCrime: [],
       zoom: 15,
       markerLatLng: [
                        [-21.92783, -50.51616],
@@ -28,6 +30,24 @@ export default {
   computed: {
   },
   methods: {
+    getFiltroEstado(){
+      axios.get(`https://localhost:7127/api/Estado`).then(response => {
+          this.estados = response.data.$values;
+          //window.location.href = "/";
+      })
+      .catch(error => {
+        console.log("Erro.")
+      });
+    },
+    getFiltroTipoDeCrime(){
+      axios.get(`https://localhost:7127/api/TipoDeCrime`).then(response => {
+          this.tipoDeCrime = response.data.$values;
+          //window.location.href = "/";
+      })
+      .catch(error => {
+        console.log("Erro.")
+      });
+    },
     gravarModal(){
     },
 
@@ -38,6 +58,8 @@ export default {
     }
   },
   mounted: function () {
+    this.getFiltroEstado();
+    this.getFiltroTipoDeCrime();
   }
 }
 </script>
@@ -45,22 +67,18 @@ export default {
 <template>
         <navBar></navBar>
         <div class="row col-12 d-flex justify-content-center">
-          <div class="mt-4 col-3">
-            <span style='color:white;'>Filtro de estado</span>
+          <div  class="mt-4 col-3">
+            <span style='color: white;'>Filtro de estado</span>
             <select  class="form-select" aria-label="Default select example">
               <option selected>Selecione o filtro</option>
-              <option value="1">SP</option>
-              <option value="2">RJ</option>
-              <option value="3">SC</option>
+              <option v-for="c in this.estados" value="1">{{ c.nomeEstado + ' - ' + c.siglaEstado}}</option>
             </select>
           </div>
           <div class="mt-4 col-3">
             <span style="color:white">Filtro de crimes</span>
             <select  class="form-select" aria-label="Default select example">
               <option selected>Selecione o filtro</option>
-              <option value="1">ROUBO</option>
-              <option value="2">FURTO</option>
-              <option value="3">HOMICIDIO</option>
+              <option v-for="c in this.tipoDeCrime" value="1">{{ c.descricao }}</option>
             </select>
           </div>
         </div>
