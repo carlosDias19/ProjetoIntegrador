@@ -13,7 +13,8 @@ export default {
       modalHeader: null,
       Operacao: null,
       dadosManipulando:{
-
+        DESCRICAO: null,
+        ATIVO: true
       },
     }
   },
@@ -21,10 +22,30 @@ export default {
   },
   methods: {
     gravarModal(){
+      const config = {
+        headers: {
+          'Content-Type': 'application/json' // Defina o cabeçalho Content-Type apropriado para o seu tipo de dados
+        }
+      };
+      axios.post(`https://localhost:7127/api/TipoDeCrime?Descricao=${this.dadosManipulando.DESCRICAO}&Ativo=${this.dadosManipulando.ATIVO}`).then(response => {
+          console.log(response);
+          this.closeModal();
+      })
+      .catch(error => {
+        alert("Erro ao inserir.")
+      });
     },
 
     getGenero() {
-      axios.get(`https://localhost:7127/api/Denuncias`).then(response => {
+      axios.get(`https://localhost:7127/api/TipoDeCrime`).then(response => {
+        response.data.$values.forEach(element => {
+          if(element['ativo'] = true){
+            element['ativo'] = 'Sim'
+          }
+          else{
+            element['ativo'] = 'Não'
+          }
+        });
         this.dataSourceTable = response.data.$values;
       })
       .catch(error => {
@@ -41,11 +62,7 @@ export default {
 
       if (this.acao == 'Novo') {
         this.$refs.Modal.show();
-        this.modalHeader = 'Novo';
-        // this.button = [
-        //   {NOME: 'Salvar', action: this.Operacao, class: 'btn btn-outline-primary'},
-        //   {NOME: 'Fechar', action: this.closeModal, class: 'btn btn-outline-danger'}
-        // ];
+        this.modalHeader = 'Novo Tipo De Crime';
         return;
       }
 
@@ -122,36 +139,70 @@ export default {
             <div class='grid col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'>
 
               <div class='headGrid'>  
-                <button type="button" @click='openModal("Novo")' class="btn btn-primary"><i class="fa-solid fa-plus fa-lg"></i>&nbsp&nbspAdicionar</button>
-                <button type="button" @click='openModal("Editar")' class="btn btn-secondary"><i class="fa-solid fa-pen-to-square fa-lg"></i>&nbsp&nbspEditar</button>
-                <button type="button" @click='openModal("Deletar")' class="btn btn-danger"><i class="fa-solid fa-trash fa-lg"></i>&nbsp&nbspDeletar</button>
+                <button type="button" @click='openModal("Novo")' class="btn btn-primary"><font-awesome-icon :icon="['fas', 'plus']"/>&nbsp&nbspAdicionar</button>
+                <button type="button" @click='openModal("Editar")' class="btn btn-secondary"><font-awesome-icon :icon="['fas', 'pen-to-square']"/>&nbsp&nbspEditar</button>
+                <button type="button" @click='openModal("Deletar")' class="btn btn-danger"><font-awesome-icon :icon="['fas', 'trash']"/>&nbsp&nbspDeletar</button>
               </div>
 
               <div class='thead'>
-                <div class='col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6'><span>Sequência</span></div>
-                <div class='col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6'><span>Descrição</span></div>
+                <div class='col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4'><span>ID do tipo de crime</span></div>
+                <div class='col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4'><span>Descrição</span></div>
+                <div class='col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4'><span>Ativo</span></div>
               </div>
 
               <div class='tbody'>
                 <div v-if='dataSourceTable.length == 0' class='genero' style='margin: 1% 0'>
                   <span>Nenhum dado para carregar.</span>
                 </div>
-                <div v-else v-for='data in dataSourceTable' class='genero' :id='(data.denunciasId)' @click='generoSelecionado(data)'>
-                  <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'>{{data.denunciasId}}</div>
-                  <div class='col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3'>{{data.endereco}}</div>
+                <div v-else v-for='data in dataSourceTable' class='genero' :id='(data.tipoId)' @click='generoSelecionado(data)'>
+                  <div class='col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4'>{{data.tipoId}}</div>
+                  <div class='col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4'>{{data.descricao}}</div>
+                  <div class='col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4'>{{data.ativo}}</div>
                 </div>
               </div>
 
             </div>
 
-    <modal ref='Modal' :width='800' :height="800">
+    <modal ref='Modal' :width='1000'>
 
-      <h4 slot='header'>{{modalHeader}}</h4>
+      <header>
+        <h4>{{modalHeader}}</h4>
+      </header>
 
-      <div slot='main'>
-        <div>aqui</div>
-      </div>
+      <main>
 
+          <form>
+
+            <div class="row mt-3">
+              <div class="col-1"></div>
+              <div class="input-container col-xs-12 col-sm-12 col-md-5 col-lg-5 mt-3">		
+                  <input v-model="dadosManipulando.DESCRICAO" type="text" required=""/>
+                  <label style="color:#000000; margin-left:10px;">Descrição: *</label> 
+              </div>  
+              <div class='col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 mt-4'>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="ativar_desativar" v-model='dadosManipulando.ATIVO'>
+                  <label class="form-check-label" for="ativar_desativar">Ativo/Desativo</label>
+                </div>
+              </div>
+              <div class="col-1"></div>
+            </div>
+
+          </form>
+        
+
+      </main>
+
+      <footer>
+        <div class="row d-flex justify-content-end me-2">
+            <div class="col-2">
+                <button type="button" id="buttonModalSalvar" @click='gravarModal("Salvar")' class="btn btn-success"><font-awesome-icon :icon="['fas', 'check']"/>&nbsp&nbspSalvar</button>
+            </div>
+            <div class="col-2">
+                <button type="button" id="buttonModal" @click='closeModal()' class="btn btn-danger"><font-awesome-icon :icon="['fas', 'xmark']"/>&nbsp&nbspFechar</button>
+            </div>
+        </div>
+      </footer>
     </modal>
 
           </div>
@@ -209,8 +260,7 @@ body {
 }
 
 .headGrid {
-    background-color: #D0D0D0;
-    padding: 5px;
+  margin-top: -100px;
 }
 
 /* Modal */

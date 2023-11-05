@@ -1,14 +1,11 @@
 <template>
 
     <div v-show='showModal' class="modal">
-        <div v-bind:style="{ width: width + 'px' }, { height: height + 'px'}" class='modal_container'>
-
-            <slot name='header'></slot>
-
-            <slot name='main'></slot>
-
-            <slot name='footer'></slot>
+        <div v-bind:style="{ width: width + 'px' }" class='modal_container'>
             
+            <slot>
+            </slot>
+
         </div>
     </div>
 
@@ -53,6 +50,12 @@ export default {
 }
 </script>
 <style>
+#buttonModalSalvar{
+    width: 150px;
+}
+#buttonModal {
+    width: 150px;
+}
 
 .modal {
   position: fixed;
