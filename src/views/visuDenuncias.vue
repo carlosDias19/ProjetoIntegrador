@@ -10,11 +10,13 @@ export default {
   data: function () {
     return {
       dataSourceTable: [],
+      TipoManipulando: {},
       modalHeader: null,
-      Operacao: null,
+      acao: null,
       dadosManipulando:{
         DESCRICAO: null,
-        ATIVO: true
+        ATIVO: true,
+        TIPOID: null
       },
     }
   },
@@ -22,27 +24,32 @@ export default {
   },
   methods: {
     gravarModal(){
-      const config = {
-        headers: {
-          'Content-Type': 'application/json' // Defina o cabeçalho Content-Type apropriado para o seu tipo de dados
-        }
-      };
-      axios.post(`https://localhost:7127/api/TipoDeCrime?Descricao=${this.dadosManipulando.DESCRICAO}&Ativo=${this.dadosManipulando.ATIVO}`).then(response => {
-          console.log(response);
-          this.closeModal();
-      })
-      .catch(error => {
-        alert("Erro ao inserir.")
-      });
+
+      if(this.acao == 'Novo'){
+        // axios.post(`https://localhost:7127/api/TipoDeCrime?Descricao=${this.dadosManipulando.DESCRICAO}&Ativo=${this.dadosManipulando.ATIVO}`).then(response => {
+        //     console.log(response);
+        //     this.closeModal();
+        // })
+        // .catch(error => {
+        //   alert("Erro ao inserir.")
+        // });
+      }
+      else if(this.acao == 'Editar'){
+
+      }
+      else if(this.acao == 'Deletar'){
+        
+      }
+
     },
 
-    getGenero() {
+    getTipo() {
       axios.get(`https://localhost:7127/api/TipoDeCrime`).then(response => {
         response.data.$values.forEach(element => {
-          if(element['ativo'] = true){
+          if(element['ativo'] == true){
             element['ativo'] = 'Sim'
           }
-          else{
+          if(element['ativo'] == false){
             element['ativo'] = 'Não'
           }
         });
@@ -61,67 +68,60 @@ export default {
       this.acao = acao;
 
       if (this.acao == 'Novo') {
+        this.limparDadosManipulando();
         this.$refs.Modal.show();
         this.modalHeader = 'Novo Tipo De Crime';
         return;
       }
 
-      // if (this.acao == 'Editar') {
+      if (this.acao == 'Editar') {
+        this.limparDadosManipulando();
+        if (!this.tipoManipulando) {
+          alert('Por Favor, Selecione um registro.')
+          return;
+        }
 
-      //   if (!this.generoManipulando.CODGENERO) {
-      //     alert('Por Favor, Selecione um registro.')
-      //     return;
-      //   }
+        this.$refs.Modal.show();
+        this.modalHeader = 'Editar Tipo De Crime';
 
-      //   this.$refs.Modal.show();
-      //   this.modalHeader = 'Editar';
-      //   this.button = [
-      //     {NOME: 'Salvar', action: this.Operacao, class: 'btn btn-outline-primary'},
-      //     {NOME: 'Fechar', action: this.closeModal, class: 'btn btn-outline-danger'}
-      //   ];
-
-      //   this.dados.CODGENERO = this.generoManipulando.CODGENERO;
-      //   this.dados.GENERO = this.generoManipulando.GENERO;
-      //   this.dados.FORCA  = this.generoManipulando.FORCA;
-      //   this.dados.VELOCIDADE = this.generoManipulando.VELOCIDADE;
-      //   this.dados.INTELIGENCIA = this.generoManipulando.INTELIGENCIA;
-      //   this.dados.DESCRICAO  = this.generoManipulando.DESCRICAO;
-      //   this.dados.ATIVO  = this.generoManipulando.ATIVO == 'S' ? true : false;
-
-      //   return;
-      // }
-
-      // if (this.acao == 'Deletar') {
-
-      //   if (!this.generoManipulando.CODGENERO) {
-      //     alert('Por Favor, Selecione um registro.')
-      //     return;
-      //   }
-      //   this.dados.CODGENERO = this.generoManipulando.CODGENERO;
-      //   this.Operacao();
-
-      //   return;
-      //  }
-    },
-
-    generoSelecionado(element) {
-      // Verifica se tem um contato já selecionado para remover o estilo
-      if (this.generoManipulando.CODGENERO) {
-        document.getElementById(this.generoManipulando.CODGENERO).classList.remove('GeneroSelecionado');
+        this.dadosManipulando.TIPOID = this.tipoManipulando.tipoId;
+        this.dadosManipulando.DESCRICAO = this.tipoManipulando.descricao;
+        this.dadosManipulando.ATIVO  = this.tipoManipulando.ativo == 'Sim' ? true : false;
+        return;
       }
 
-      this.generoManipulando = element;
+      if (this.acao == 'Deletar') {
 
-      document.getElementById(element.CODGENERO).classList.add('GeneroSelecionado');
+        if (!this.tipoManipulando) {
+          alert('Por Favor, Selecione um registro.')
+          return;
+        }
+        this.dadosManipulando.TIPOID = this.tipoManipulando.tipoId;
+        this.gravarModal();
+        return;
+       }
+    },
+
+    TipoSelecionado(element) {
+      // // Verifica se tem um contato já selecionado para remover o estilo
+      if (this.tipoManipulando != null) {
+        document.getElementById(this.tipoManipulando.tipoId).classList.remove('TipoSelecionado');
+      }
+      this.tipoManipulando = element;
+
+      document.getElementById(element.tipoId).classList.add('TipoSelecionado');
     },
 
     limparDadosManipulando(){
       this.dadosManipulando = {
+        DESCRICAO: null,
+        ATIVO: true,
+        TIPOID: null
       }
     }
   },
   mounted: function () {
-    this.getGenero();
+    this.getTipo();
   }
 }
 </script>
@@ -140,8 +140,8 @@ export default {
 
               <div class='headGrid'>  
                 <button type="button" @click='openModal("Novo")' class="btn btn-primary"><font-awesome-icon :icon="['fas', 'plus']"/>&nbsp&nbspAdicionar</button>
-                <button type="button" @click='openModal("Editar")' class="btn btn-secondary"><font-awesome-icon :icon="['fas', 'pen-to-square']"/>&nbsp&nbspEditar</button>
-                <button type="button" @click='openModal("Deletar")' class="btn btn-danger"><font-awesome-icon :icon="['fas', 'trash']"/>&nbsp&nbspDeletar</button>
+                <button type="button" @click='openModal("Editar")' style="margin-left: 2px;" class="btn btn-secondary"><font-awesome-icon :icon="['fas', 'pen-to-square']"/>&nbsp&nbspEditar</button>
+                <button type="button" @click='openModal("Deletar")' style="margin-left: 2px;" class="btn btn-danger"><font-awesome-icon :icon="['fas', 'trash']"/>&nbsp&nbspDeletar</button>
               </div>
 
               <div class='thead'>
@@ -151,10 +151,10 @@ export default {
               </div>
 
               <div class='tbody'>
-                <div v-if='dataSourceTable.length == 0' class='genero' style='margin: 1% 0'>
+                <div v-if='dataSourceTable.length == 0' class='tipoDeCrime' style='margin: 1% 0'>
                   <span>Nenhum dado para carregar.</span>
                 </div>
-                <div v-else v-for='data in dataSourceTable' class='genero' :id='(data.tipoId)' @click='generoSelecionado(data)'>
+                <div v-else v-for='data in dataSourceTable' class='tipoDeCrime' :id='(data.tipoId)' @click='TipoSelecionado(data)'>
                   <div class='col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4'>{{data.tipoId}}</div>
                   <div class='col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4'>{{data.descricao}}</div>
                   <div class='col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4'>{{data.ativo}}</div>
@@ -214,7 +214,7 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&subset=greek-ext');
 
 body {
-    font-family: 'Poppins', sans-serif;;
+    font-family: 'Poppins', sans-serif;
     background-color: rgb(2 6 23);
     margin: 0;
     padding: 0;
@@ -232,7 +232,7 @@ body {
     padding: 5px;
 }
 
-.genero {
+.tipoDeCrime {
     display: flex;
     justify-content: center;
     padding: 10px;
@@ -240,14 +240,14 @@ body {
     transition: 0.3s ease-in;
 } 
 
-.genero:hover {
+.tipoDeCrime:hover {
     background-color: #b3b3b39a;
     font-weight: bold;
 }
 
-.GeneroSelecionado {
+.TipoSelecionado {
     color: white;
-    background-image: radial-gradient(circle, #0a66ee, #334fcf, #3e38b0, #402092, #3d0174);
+    background-image: radial-gradient(circle,  #FF0000, #FF69B4);
 }
 
 .thead {

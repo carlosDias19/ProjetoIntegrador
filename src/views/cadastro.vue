@@ -101,8 +101,7 @@ body{
 	font-family: 'Noto Sans', sans-serif;
 }
 .text-center{
-	color:#fff;	
-	text-transform:uppercase;
+	color:#fff;
     font-size: 23px;
     margin: -50px 0 80px 0;
     display: block;
@@ -151,7 +150,6 @@ body{
     border: 0;
     color: #fff;
 	padding:10px 20px;
-	text-transform:uppercase;
 	margin-top:50px;
 	border-radius:2px;
 	cursor:pointer;
