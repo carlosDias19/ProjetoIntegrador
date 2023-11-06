@@ -4,7 +4,7 @@ import denuncias from '../views/denuncias.vue'
 import mapa from '../views/mapa.vue'
 import cadastro from '../views/cadastro.vue'
 import login from '../views/login.vue'
-import visuDenuncias from '../views/visuDenuncias.vue'
+import tipoDeCrime from '../views/tipoDeCrime.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,9 +35,9 @@ const router = createRouter({
       component: login
     },
     {
-      path: '/visuDenuncias',
-      name: 'visuDenuncias',
-      component: visuDenuncias
+      path: '/tipoDeCrime',
+      name: 'tipoDeCrime',
+      component: tipoDeCrime
     }
   ]
 })

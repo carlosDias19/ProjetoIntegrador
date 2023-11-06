@@ -24,21 +24,36 @@ export default {
   },
   methods: {
     gravarModal(){
-
       if(this.acao == 'Novo'){
-        // axios.post(`https://localhost:7127/api/TipoDeCrime?Descricao=${this.dadosManipulando.DESCRICAO}&Ativo=${this.dadosManipulando.ATIVO}`).then(response => {
-        //     console.log(response);
-        //     this.closeModal();
-        // })
-        // .catch(error => {
-        //   alert("Erro ao inserir.")
-        // });
+        axios.post(`https://localhost:7127/api/TipoDeCrime?`,{'Descricao': this.dadosManipulando.DESCRICAO, 'Ativo': this.dadosManipulando.ATIVO}).then(response => {
+            this.getTipo();
+            this.closeModal();
+        })
+        .catch(error => {
+          alert("Erro ao inserir.")
+        });
       }
       else if(this.acao == 'Editar'){
-
+        axios.put(`https://localhost:7127/api/TipoDeCrime?`,{'TipoId':this.dadosManipulando.TIPOID ,'Descricao': this.dadosManipulando.DESCRICAO, 'Ativo': this.dadosManipulando.ATIVO}).then(response => {
+            this.getTipo();
+            this.closeModal();
+        })
+        .catch(error => {
+          alert("Erro ao atualizar.")
+        });
       }
       else if(this.acao == 'Deletar'){
-        
+        axios.delete(`https://localhost:7127/api/TipoDeCrime?`,{'TipoId':this.dadosManipulando.TIPOID}, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(response => {
+            this.getTipo();
+            this.closeModal();
+        })
+        .catch(error => {
+          alert("Erro ao deletar.")
+        });
       }
 
     },
@@ -97,6 +112,8 @@ export default {
           return;
         }
         this.dadosManipulando.TIPOID = this.tipoManipulando.tipoId;
+        this.dadosManipulando.DESCRICAO = this.tipoManipulando.descricao;
+        this.dadosManipulando.ATIVO  = this.tipoManipulando.ativo == 'Sim' ? true : false;
         this.gravarModal();
         return;
        }
