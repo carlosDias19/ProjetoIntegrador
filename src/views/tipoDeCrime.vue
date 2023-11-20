@@ -23,9 +23,15 @@ export default {
   computed: {
   },
   methods: {
-    gravarModal(){
+    async gravarModal(){
       if(this.acao == 'Novo'){
-        axios.post(`https://localhost:7127/api/TipoDeCrime?`,{'Descricao': this.dadosManipulando.DESCRICAO, 'Ativo': this.dadosManipulando.ATIVO}).then(response => {
+        axios.post(`https://localhost:7127/api/TipoDeCrime?`,{'Descricao': this.dadosManipulando.DESCRICAO, 'Ativo': this.dadosManipulando.ATIVO}, 
+        {
+        headers: {
+          'Content-Type': 'application/json',
+          // Adicione outros cabeçalhos necessários aqui
+        }
+        }).then(response => {
             this.getTipo();
             this.closeModal();
         })
@@ -43,13 +49,12 @@ export default {
         });
       }
       else if(this.acao == 'Deletar'){
-        axios.delete(`https://localhost:7127/api/TipoDeCrime?`,{'TipoId':this.dadosManipulando.TIPOID}, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }).then(response => {
-            this.getTipo();
-            this.closeModal();
+        axios.delete(`https://localhost:7127/api/TipoDeCrime/${this.dadosManipulando.TIPOID}`,{         
+        headers: {
+          'Content-Type': 'application/json'
+        },}).
+        then(response => {
+          this.getTipo();
         })
         .catch(error => {
           alert("Erro ao deletar.")
@@ -58,8 +63,14 @@ export default {
 
     },
 
-    getTipo() {
-      axios.get(`https://localhost:7127/api/TipoDeCrime`).then(response => {
+    async getTipo() {
+      axios.get(`https://localhost:7127/api/TipoDeCrime`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          // Adicione outros cabeçalhos necessários aqui
+        }
+      }).then(response => {
         response.data.$values.forEach(element => {
           if(element['ativo'] == true){
             element['ativo'] = 'Sim'
@@ -106,7 +117,8 @@ export default {
       }
 
       if (this.acao == 'Deletar') {
-
+        this.limparDadosManipulando();
+        
         if (!this.tipoManipulando) {
           alert('Por Favor, Selecione um registro.')
           return;

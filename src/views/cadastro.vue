@@ -23,7 +23,11 @@ export default {
   methods: {
     gravarModal(){
 
-    }
+    },
+    
+    teste(){
+      console.log("aqui")
+    },
   },
   mounted: function () {
     const script = document.createElement('script');
@@ -66,7 +70,7 @@ export default {
             </div>
 
             <div class="form-outline mb-4">
-              <input type="text" id="nomeCompleto" class="form-control form-control-lg"
+              <input v-model="dadosManipulando.NOMECOMPLETO" type="text" id="nomeCompleto" class="form-control form-control-lg"
                 placeholder="Nome Completo" />
               <label class="form-label" for="nomeCompleto">Nome Completo</label>
             </div>
@@ -76,7 +80,7 @@ export default {
             </div>  
 
             <div class="text-center text-lg-start mt-2 pt-2">
-              <button type="button" class="btn btn-primary btn-lg"
+              <button type="button" @click='teste' class="btn btn-primary btn-lg"
                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Regitrar-se</button>
             </div>
   
