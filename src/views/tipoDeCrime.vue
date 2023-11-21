@@ -71,7 +71,7 @@ export default {
           // Adicione outros cabeçalhos necessários aqui
         }
       }).then(response => {
-        response.data.$values.forEach(element => {
+        response.data.forEach(element => {
           if(element['ativo'] == true){
             element['ativo'] = 'Sim'
           }
@@ -79,7 +79,7 @@ export default {
             element['ativo'] = 'Não'
           }
         });
-        this.dataSourceTable = response.data.$values;
+        this.dataSourceTable = response.data;
       })
       .catch(error => {
         console.log("Erro.")

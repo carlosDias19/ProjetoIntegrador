@@ -127,7 +127,7 @@ export default {
       else{
         this.modalHeader = 'Confirmar Denúncias';
         axios.get(`https://localhost:7127/api/TipoDeCrime/${this.confirmManipulando.tipoId}`,
-      {
+        {
         headers: {
           'Content-Type': 'application/json',
           // Adicione outros cabeçalhos necessários aqui

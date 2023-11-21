@@ -2,20 +2,24 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { TextBoxComponent as EjsTextbox } from '@syncfusion/ej2-vue-inputs';
 import navBar from '../components/navBar.vue'
+import modal from '../components/modal.vue'
 
 export default {
   components: {
-    RouterLink, RouterView, EjsTextbox, navBar
+    RouterLink, RouterView, EjsTextbox, navBar, modal
   },
   data: function () {
     return {
+      tipoDeCrime: [],
+      dataSourceTable: [],
+      modalHeader: null,
+      acao: null,
       dadosManipulando:{
         CEP: null,
         ENDERECO: null,
         NUMERO: null,
         ESTADO: null,
         CIDADE: null,
-        NOME: null,
         TIPOCRIME: null,
         BAIRRO: null,
         COMPLEMENTO: null,
@@ -28,6 +32,43 @@ export default {
   computed: {
   },
   methods: {
+    getDenuncias(){
+      axios.get(`https://localhost:7127/api/DenunciasConfirm/`,
+        {
+        headers: {
+          'Content-Type': 'application/json',
+          // Adicione outros cabeçalhos necessários aqui
+        }
+      }).then(response => {
+        response.data.forEach(element => {
+          axios.get(`https://localhost:7127/api/Usuario/${element['usuarioId']}`,
+            {
+            headers: {
+              'Content-Type': 'application/json',
+              // Adicione outros cabeçalhos necessários aqui
+            }
+          }).then(response => {
+            element['usuarioId'] = response.data.nomeCompleto + ' - ' + response.data.usuarioId
+          });
+        });
+        setTimeout(() => {
+          this.dataSourceTable = response.data  
+        },200);
+      });
+    },
+
+    getTipo(){
+      axios.get(`https://localhost:7127/api/TipoDeCrime/`,
+        {
+        headers: {
+          'Content-Type': 'application/json',
+          // Adicione outros cabeçalhos necessários aqui
+        }
+      }).then(response => {
+        this.tipoDeCrime = response.data
+      });
+    },
+
     gravarModal(){
       if(this.dadosManipulando.CEP == null || this.dadosManipulando.CEP == ""){
         alert("Preencha o CEP.");
@@ -54,8 +95,40 @@ export default {
           alert("Erro ao gravar denuncia.", error);
         }
         console.log(this.dadosManipulando)
+        axios.post(`https://localhost:7127/api/DenunciasConfirm?`,
+        {
+          'tipoId': this.dadosManipulando.TIPOCRIME,
+          'usuarioId': 1,
+          'cep': this.dadosManipulando.CEP,
+          'endereco': this.dadosManipulando.ENDERECO,
+          'numero': this.dadosManipulando.NUMERO == null ? 0 : this.dadosManipulando.NUMERO,
+          'bairro': this.dadosManipulando.BAIRRO,
+          'complemento': this.dadosManipulando.COMPLEMENTO == null ? 0 : this.dadosManipulando.COMPLEMENTO,
+          'latitude': this.dadosManipulando.LATITUDE,
+          'longitude': this.dadosManipulando.LONGITUDE
+        }, 
+        {
+        headers: {
+          'Content-Type': 'application/json',
+          // Adicione outros cabeçalhos necessários aqui
+        }
+        }).then(response => {
+            this.getDenuncias();
+            this.closeModal();
+        })
+        .catch(error => {
+          alert("Erro ao adicionar denúcias.")
+        });
       }
     },
+
+    openModal(){
+        this.limparDadosManipulando();
+        this.$refs.Modal.show();
+        this.modalHeader = "Nova Denúncia"
+
+    },
+
     async onChange(args) {
       const cep = this.dadosManipulando.CEP
       if(cep == "" || cep == null){
@@ -82,6 +155,9 @@ export default {
         alert("CEP inválido", error);
       }
     },
+    closeModal(){
+      this.$refs.Modal.hide();
+    },
 
     limparDadosManipulando(){
       this.dadosManipulando = {
@@ -90,7 +166,6 @@ export default {
         NUMERO: null,
         ESTADO: null,
         CIDADE: null,
-        NOME: null,
         TIPOCRIME: null,
         BAIRRO: null,
         COMPLEMENTO: null
@@ -98,16 +173,67 @@ export default {
     }
   },
   mounted: function () {
+    this.getTipo();
+    this.getDenuncias();
   }
 }
 </script>
 
 <template>
-        <navBar></navBar>
-        <div class="box col-xs-12 col-sm-12 col-md-6 col-lg-6 mt-5 ">
-          <form>
-              <span style="color:#ff716c" class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">Denúncia</span>
-              <p style="color:#000000; font-size: 12px; font-weight: bold;" class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">Campos com *, são obrigatórios.</p>
+  <navBar></navBar>
+        
+  <div id="main">
+         
+                          
+  <div  class='grid col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center'>
+    <div class="d-flex justify-content-center">
+      <h2 style="color:#ff716c">Denúncias</h2>
+    </div>
+  </div>
+
+  <div class='grid col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'>
+
+    <div class='headGrid'>  
+      <div class="d-flex justify-content-center">
+        <button type="button" @click='openModal()' class="btn btn-primary"><font-awesome-icon :icon="['fas', 'plus']"/>&nbsp&nbspDenúnciar</button>
+      </div>
+    </div>
+
+    <div class='thead'>
+      <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'><span>ID</span></div>
+      <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'><span>Usúario</span></div>
+      <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'><span>Endereço</span></div>
+      <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'><span>Número</span></div>
+      <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'><span>Complemento</span></div>
+      <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'><span>Bairro</span></div>
+      <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'><span>CEP</span></div>
+    </div>
+
+    <div class='tbody'>
+      <div v-if='dataSourceTable.length == 0' class='tipoDeCrime' style='margin: 1%'>
+        <span>Nenhum dado para carregar.</span>
+      </div>
+      <div v-else v-for='data in dataSourceTable' class='tipoDeCrime' :id='(data.denunciasId)' @click='ConfirmSelecionado(data)'>
+        <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'>{{data.denunciasId}}</div>
+        <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'>{{data.usuarioId}}</div>
+        <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'>{{data.endereco}}</div>
+        <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'>{{data.numero}}</div>
+        <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'>{{data.complemento}}</div>
+        <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'>{{data.bairro}}</div>
+        <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'>{{data.cep}}</div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <modal ref='Modal' :width='1000'>
+
+  <header>
+    <h4>{{modalHeader}}</h4>
+  </header>
+
+  <main>
             <div class="input-container col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <input @change="onChange" maxlength="maxCharacters" v-model="dadosManipulando.CEP" type="number" required=""/>
               <label style="color:#000000">CEP da ocorrência: *</label>		
@@ -142,23 +268,26 @@ export default {
                 <label style="color:#000000; margin-left:10px;">Cidade: *</label> 
               </div>
             </div>
-              <div class="input-group mb-3">
-                <div class="input-group-text">
-                  <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">&nbsp&nbsp&nbspDeseja denuciar anonimamente ?
-                </div>
-              </div>
-            <select v-model="dadosManipulando.TIPOCRIME" class="form-select" aria-label="Default select example">
-              <option selected>Selecione o tipo de crime *</option>
-              <option value="1">Crime1</option>
-              <option value="2">Crime2</option>
-              <option value="3">Crime3</option>
+            <label style="color:#000000;">Selecione o tipo de crime: *</label> 
+            <select v-model="dadosManipulando.TIPOCRIME"  class="form-select" aria-label="Default select example">
+              <option v-for='data in tipoDeCrime' :value="data.tipoId" >{{ data.descricao + ' - ' + data.tipoId}}</option>
             </select>
-              <div class="d-flex justify-content-center">
-                <button @click="gravarModal" type="button" class="btn" >Enviar</button>
-              </div>
-          </form>	
-        </div>
 
+  </main>
+
+  <footer>
+    <div class="row d-flex justify-content-end me-2">
+        <div class="col-2">
+            <button type="button" id="buttonModalSalvar" @click='gravarModal("Salvar")' class="btn btn-success"><font-awesome-icon :icon="['fas', 'check']"/>&nbsp&nbspSalvar</button>
+        </div>
+        <div class="col-2">
+            <button type="button" id="buttonModal" @click='closeModal()' class="btn btn-danger"><font-awesome-icon :icon="['fas', 'xmark']"/>&nbsp&nbspFechar</button>
+        </div>
+    </div>
+  </footer>
+  </modal>
+
+</div>  
 </template>
 
 <style>

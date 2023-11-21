@@ -11,7 +11,7 @@ export default {
     return {
       siteKey: '6Lc8p8MoAAAAAIMVollcJEGcqYLS8t5M1mIQA3kY',
       dadosManipulando:{
-        NOME: null,
+        NOMECOMPLETO: null,
         EMAIL: null,
         SENHA: null,
         CONFIRMARSENHA: null,
@@ -22,11 +22,50 @@ export default {
   },
   methods: {
     gravarModal(){
-
+      
+      
     },
     
-    teste(){
-      console.log("aqui")
+    async enviar(){
+      if(this.dadosManipulando.NOMECOMPLETO == null || this.dadosManipulando.NOMECOMPLETO == ""){
+        alert("Preencha seu Nome.");
+      } else if (this.dadosManipulando.EMAIL == null || this.dadosManipulando.EMAIL == ""){
+        alert("Preencha seu Email.")
+      } else if (this.dadosManipulando.SENHA == null || this.dadosManipulando.SENHA == ""){
+        alert("Preencha a Senha.")
+      } else if(this.dadosManipulando.CONFIRMARSENHA == null || this.dadosManipulando.CONFIRMARSENHA == ""){
+        alert("Confirme sua Senha.")
+      }else if(this.dadosManipulando.SENHA != this.dadosManipulando.CONFIRMARSENHA ){
+        alert("Senhas diferentes")
+      }else{
+
+        const dataEspecifica = new Date();  // O mês é 0-indexed, então 10 representa novembro
+        const anoEspecifica = dataEspecifica.getFullYear();
+        const mesEspecifica = String(dataEspecifica.getMonth() + 1).padStart(2, '0');
+        const diaEspecifica = String(dataEspecifica.getDate()).padStart(2, '0');
+        const dataFormatadaEspecifica = `${anoEspecifica}-${mesEspecifica}-${diaEspecifica}`;
+        
+        
+        axios.post(`https://localhost:7127/api/Usuario?`,
+        {'email': this.dadosManipulando.EMAIL,
+         'senha': this.dadosManipulando.SENHA,
+         'nomeCompleto': this.dadosManipulando.NOMECOMPLETO,         
+         'ativo': true,
+         'nivel': 0,
+         'dataCriacao': dataFormatadaEspecifica}, 
+        {
+        headers: {
+          'Content-Type': 'application/json',
+          // Adicione outros cabeçalhos necessários aqui
+        }
+        }).then(response => {
+           window.location.href = "/login";
+        })
+        .catch(error => {
+          alert("Erro ao Registrar-se.")
+        });      
+        
+      }
     },
   },
   mounted: function () {
@@ -52,19 +91,19 @@ export default {
           <form>
 
             <div class="form-outline mb-4">
-              <input type="email" id="email" class="form-control form-control-lg"
+              <input v-model="dadosManipulando.EMAIL" type="email" id="email" class="form-control form-control-lg"
                 placeholder="E-mail" />
               <label class="form-label" for="email">E-mail</label>
             </div>
   
             <div class="form-outline mb-3">
-              <input type="password" id="senha" class="form-control form-control-lg"
+              <input v-model="dadosManipulando.SENHA" type="password" id="senha" class="form-control form-control-lg"
                 placeholder="Senha" />
               <label class="form-label" for="senha">Senha</label>
             </div>
 
             <div class="form-outline mb-3">
-              <input type="password" id="confirmarSenha" class="form-control form-control-lg"
+              <input v-model="dadosManipulando.CONFIRMARSENHA" type="password" id="confirmarSenha" class="form-control form-control-lg"
                 placeholder="Confime sua senha" />
               <label class="form-label" for="confirmarSenha">Confime sua senha</label>
             </div>
@@ -80,7 +119,7 @@ export default {
             </div>  
 
             <div class="text-center text-lg-start mt-2 pt-2">
-              <button type="button" @click='teste' class="btn btn-primary btn-lg"
+              <button type="button" @click='enviar' class="btn btn-primary btn-lg"
                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Regitrar-se</button>
             </div>
   
