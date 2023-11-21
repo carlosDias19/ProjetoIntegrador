@@ -33,10 +33,12 @@ export default {
   },
   methods: {
     getDenuncias(){
-      axios.get(`https://localhost:7127/api/DenunciasConfirm/`,
+      console.log(localStorage.getItem('token'));
+      axios.get(`https://localhost:7127/api/Denuncias/`,
         {
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
           // Adicione outros cabeçalhos necessários aqui
         }
       }).then(response => {
@@ -45,6 +47,7 @@ export default {
             {
             headers: {
               'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
               // Adicione outros cabeçalhos necessários aqui
             }
           }).then(response => {
@@ -62,6 +65,7 @@ export default {
         {
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
           // Adicione outros cabeçalhos necessários aqui
         }
       }).then(response => {
@@ -110,6 +114,7 @@ export default {
         {
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
           // Adicione outros cabeçalhos necessários aqui
         }
         }).then(response => {
@@ -200,8 +205,7 @@ export default {
     </div>
 
     <div class='thead'>
-      <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'><span>ID</span></div>
-      <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'><span>Usúario</span></div>
+      <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'><span>ID Denúncia</span></div>
       <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'><span>Endereço</span></div>
       <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'><span>Número</span></div>
       <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'><span>Complemento</span></div>
@@ -215,7 +219,6 @@ export default {
       </div>
       <div v-else v-for='data in dataSourceTable' class='tipoDeCrime' :id='(data.denunciasId)' @click='ConfirmSelecionado(data)'>
         <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'>{{data.denunciasId}}</div>
-        <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'>{{data.usuarioId}}</div>
         <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'>{{data.endereco}}</div>
         <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'>{{data.numero}}</div>
         <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'>{{data.complemento}}</div>

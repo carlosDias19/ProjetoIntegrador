@@ -23,7 +23,6 @@ export default {
   methods: {
     gravarModal(){
       
-      
     },
     
     async enviar(){
@@ -37,14 +36,16 @@ export default {
         alert("Confirme sua Senha.")
       }else if(this.dadosManipulando.SENHA != this.dadosManipulando.CONFIRMARSENHA ){
         alert("Senhas diferentes")
-      }else{
+      }else if(this.dadosManipulando.SENHA.length < 5){
+        alert("Sua senha precisa conter mais de cinco digitos!!")
+      }
+      else{
 
         const dataEspecifica = new Date();  // O mês é 0-indexed, então 10 representa novembro
         const anoEspecifica = dataEspecifica.getFullYear();
         const mesEspecifica = String(dataEspecifica.getMonth() + 1).padStart(2, '0');
         const diaEspecifica = String(dataEspecifica.getDate()).padStart(2, '0');
         const dataFormatadaEspecifica = `${anoEspecifica}-${mesEspecifica}-${diaEspecifica}`;
-        
         
         axios.post(`https://localhost:7127/api/Usuario?`,
         {'email': this.dadosManipulando.EMAIL,
@@ -59,7 +60,7 @@ export default {
           // Adicione outros cabeçalhos necessários aqui
         }
         }).then(response => {
-           window.location.href = "/login";
+           window.location.href = "/";
         })
         .catch(error => {
           alert("Erro ao Registrar-se.")

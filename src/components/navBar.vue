@@ -7,6 +7,7 @@ export default {
   },
   data: function () {
     return {
+      user: null,
       dadosManipulando:{
       }
     }
@@ -14,9 +15,24 @@ export default {
   computed: {
   },
   methods: {
+    getUser(){
+      const token = localStorage.getItem('token')
+
+      // Dividir o token nas partes (header, payload, signature)
+      const [header, payload, signature] = token.split('.');
+
+      // Decodificar a parte do payload
+      const decodedPayload = atob(payload);
+
+      // Converter a string decodificada em um objeto JavaScript
+      const payloadObject = JSON.parse(decodedPayload);
+
+      // console.log(payloadObject.UsuarioId);
+      this.user = payloadObject.UsuarioId
+    }
   },
   mounted: function () {
-
+    this.getUser();
   }
 }
 </script>
@@ -29,7 +45,7 @@ export default {
         <!-- Navbar brand -->
         <img src="Logo.png" height="100" alt=""
         loading="lazy" />
-        <a class="navbar-brand nav-link" href="/">
+        <a class="navbar-brand nav-link" href="/feed">
             <strong>Report Radar</strong>
         </a>
         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
@@ -39,7 +55,7 @@ export default {
         <div class="collapse navbar-collapse" id="navbarExample01">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" href="/">Pagina Inícial</a>
+                <a class="nav-link" href="/feed">Pagina Inícial</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/denuncias">Denúncias</a>
@@ -47,8 +63,11 @@ export default {
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/mapa" >Mapa</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" target="_blank">Sobre</a>
+            <li v-if="user == 1" class="nav-item">
+                <a class="nav-link" aria-current="page" href="/tipoDeCrime">Tipo de Crime</a>
+            </li>
+            <li v-if="user == 1" class="nav-item">
+              <a class="nav-link" aria-current="page" href="/denunciasConfirm">Confirmar Denúncias</a>
             </li>
             </ul>
         </div>

@@ -13,10 +13,15 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import axios from 'axios';
+
 /* add icons to the library */
 library.add(fas, far, fab);
 
 const app = createApp(App)
+
+// Fornece a instância do Axios para todos os componentes
+app.provide('$axios', axios);
 
 app.use(router)
 app.component('font-awesome-icon', FontAwesomeIcon)

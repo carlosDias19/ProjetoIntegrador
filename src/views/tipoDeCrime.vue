@@ -29,6 +29,7 @@ export default {
         {
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
           // Adicione outros cabeçalhos necessários aqui
         }
         }).then(response => {
@@ -40,7 +41,13 @@ export default {
         });
       }
       else if(this.acao == 'Editar'){
-        axios.put(`https://localhost:7127/api/TipoDeCrime?`,{'TipoId':this.dadosManipulando.TIPOID ,'Descricao': this.dadosManipulando.DESCRICAO, 'Ativo': this.dadosManipulando.ATIVO}).then(response => {
+        axios.put(`https://localhost:7127/api/TipoDeCrime?`,{'TipoId':this.dadosManipulando.TIPOID ,'Descricao': this.dadosManipulando.DESCRICAO, 'Ativo': this.dadosManipulando.ATIVO},{
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          // Adicione outros cabeçalhos necessários aqui
+        }
+        }).then(response => {
             this.getTipo();
             this.closeModal();
         })
@@ -51,7 +58,8 @@ export default {
       else if(this.acao == 'Deletar'){
         axios.delete(`https://localhost:7127/api/TipoDeCrime/${this.dadosManipulando.TIPOID}`,{         
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         },}).
         then(response => {
           this.getTipo();
@@ -68,6 +76,7 @@ export default {
       {
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
           // Adicione outros cabeçalhos necessários aqui
         }
       }).then(response => {

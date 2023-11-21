@@ -1,43 +1,41 @@
-<script>
-import { RouterLink, RouterView } from 'vue-router'
+<script setup>
+import { ref } from 'vue';
+import axios from 'axios';
+import router from '@/router';
 
-export default {
-  components: {
-    RouterLink, RouterView
-  },
-  data: function () {
-    return {
-      siteKey: '6Lc8p8MoAAAAAIMVollcJEGcqYLS8t5M1mIQA3kY',
-      dadosManipulando:{
-        EMAIL: null,
-        SENHA: null
-      }
-    }
-  },
-  computed: {
-  },
-  methods: {
-    login(){
-      axios.post(`https://localhost:7127/api/Auth?Email=${this.dadosManipulando.EMAIL}&Senha=${this.dadosManipulando.SENHA}`).then(response => {
-          console.log(response);
-          //window.location.href = "/";
-      })
-      .catch(error => {
-        alert("Email ou Senha Invalido.")
-      });
-    },
-    gravarModal(){
+const token = null;
+const formLogin = ref({
+    email: '',
+    senha: '',
+    // email: '',
+    // senha: '',
+});
 
-    }
-  },
-  mounted: function () {
-    const script = document.createElement('script');
-    script.src = 'https://www.google.com/recaptcha/api.js';
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-  }
-}
+axios.interceptors.request.use((config) => {
+    console.log('Dados a serem enviados:', config.data);
+    return config;
+});
+
+const Login = () => {
+    axios.post('https://localhost:7127/api/Usuario/Login', formLogin.value, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => {
+            console.log('Resposta da API:', response.data);
+            localStorage.setItem('token', response.data,'Resposta da API:', response.data);
+            formLogin.value.email = '';
+            formLogin.value.senha = '';
+            router.push('/feed');
+        })
+        .catch(error => {
+            console.error('Erro ao enviar formulário:', error);
+            // Exibir o modal de erro
+            const erroModal = new bootstrap.Modal(document.getElementById('erroModal'));
+            erroModal.show();
+        });
+};
 </script>
 
 <template>
@@ -53,14 +51,14 @@ export default {
           <form>
             <!-- Email input -->
             <div class="form-outline mb-4">
-              <input v-model="dadosManipulando.EMAIL" type="email" id="form3Example3" class="form-control form-control-lg"
+              <input v-model="formLogin.email" type="email" id="form3Example3" class="form-control form-control-lg"
                 placeholder="Entre com um email valido" />
               <label class="form-label" for="form3Example3">Email</label>
             </div>
   
             <!-- Password input -->
             <div class="form-outline mb-3">
-              <input v-model="dadosManipulando.SENHA" type="password" id="form3Example4" class="form-control form-control-lg"
+              <input v-model="formLogin.senha" type="password" id="form3Example4" class="form-control form-control-lg"
                 placeholder="Entre com sua senha" />
               <label class="form-label" for="form3Example4">Senha</label>
             </div>
@@ -69,13 +67,9 @@ export default {
               <!-- Checkbox -->
               <a href="#!" class="text-body">Esqueceu a senha?</a>
             </div>
-
-            <div class="row mt-3">
-              <div class="g-recaptcha" :data-sitekey="siteKey"></div>
-            </div>  
             
             <div class="text-center text-lg-start mt-2 pt-2">
-              <button type="button" class="btn btn-primary btn-lg" @click="login"
+              <button type="button" class="btn btn-primary btn-lg" @click="Login"
                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Entrar</button>
               <p class="small fw-bold mt-2 pt-1 mb-0">Ainda não tem uma conta? <a href="/cadastro"
                   class="link-danger">Registre-se</a></p>

@@ -30,8 +30,13 @@ export default {
   methods: {
 
     getDenunciasConfirm() {
-      axios.get(`https://localhost:7127/api/DenunciasConfirm`).then(response => {
-        console.log(response)
+      axios.get(`https://localhost:7127/api/DenunciasConfirm`,{
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            // Adicione outros cabeçalhos necessários aqui
+          }
+        }).then(response => {
         response.data.forEach(element => {
           if(element['ativo'] == true){
             element['ativo'] = 'Sim'
@@ -64,13 +69,15 @@ export default {
           {
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
             // Adicione outros cabeçalhos necessários aqui
           }
         }).then(response => {
           alert("Denúncia confirmada!!")
           axios.delete(`https://localhost:7127/api/DenunciasConfirm/${this.confirmManipulando.denunciasId}`,{         
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
           },}).
           then(response => {
             this.closeModal();
@@ -86,7 +93,8 @@ export default {
       }else if (acao == "NaoSalvar"){
         axios.delete(`https://localhost:7127/api/DenunciasConfirm/${this.confirmManipulando.denunciasId}`,{         
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         },}).
         then(response => {
           alert("Denúncia não confirmada!!")
@@ -130,6 +138,7 @@ export default {
         {
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
           // Adicione outros cabeçalhos necessários aqui
         }
       }).then(response => {
