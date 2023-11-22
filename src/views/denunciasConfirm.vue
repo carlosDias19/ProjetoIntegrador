@@ -82,6 +82,8 @@ export default {
           then(response => {
             this.closeModal();
             this.getDenunciasConfirm();
+            document.getElementById(this.confirmManipulando.denunciasId).classList.remove('ConfirmSelecionado');
+            this.limparDadosManipulando();
           })
           .catch(error => {
             alert("Erro ao deletar denuncia aceita denúncia!!")
@@ -124,10 +126,18 @@ export default {
 
     limparDadosManipulando(){
       this.dadosManipulando = {
+        CEP: null,
+        ENDERECO: null,
+        NUMERO: null,
+        BAIRRO: null,
+        COMPLEMENTO: null,
+        LATITUDE: null,
+        LONGITUDE: null,
+        TIPO: null,
       }
     },
     openModal(){
-      console.log(this.confirmManipulando)
+      
       if (Object.keys(this.confirmManipulando).length === 0) {
           alert('Por Favor, Selecione um registro para continuar.')
           return;

@@ -33,7 +33,6 @@ export default {
   },
   methods: {
     getDenuncias(){
-      console.log(localStorage.getItem('token'));
       axios.get(`https://localhost:7127/api/Denuncias/`,
         {
         headers: {
@@ -94,36 +93,36 @@ export default {
           .then(res => {
             this.dadosManipulando.LATITUDE = res.data.lat
             this.dadosManipulando.LONGITUDE = res.data.lng
+              axios.post(`https://localhost:7127/api/DenunciasConfirm?`,
+              {
+                'tipoId': this.dadosManipulando.TIPOCRIME,
+                'usuarioId': 1,
+                'cep': this.dadosManipulando.CEP,
+                'endereco': this.dadosManipulando.ENDERECO,
+                'numero': this.dadosManipulando.NUMERO == null ? 0 : this.dadosManipulando.NUMERO,
+                'bairro': this.dadosManipulando.BAIRRO,
+                'complemento': this.dadosManipulando.COMPLEMENTO == null ? 0 : this.dadosManipulando.COMPLEMENTO,
+                'latitude': this.dadosManipulando.LATITUDE,
+                'longitude': this.dadosManipulando.LONGITUDE
+              }, 
+              {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                // Adicione outros cabeçalhos necessários aqui
+              }
+              }).then(response => {
+                  this.getDenuncias();
+                  this.closeModal();
+                  alert("Denuncia feita com sucesso, logo será analisada por um de nossos ADM!")
+              })
+              .catch(error => {
+                alert("Erro ao adicionar denúcias.")
+              });
           });
         } catch (error) {
           alert("Erro ao gravar denuncia.", error);
         }
-        console.log(this.dadosManipulando)
-        axios.post(`https://localhost:7127/api/DenunciasConfirm?`,
-        {
-          'tipoId': this.dadosManipulando.TIPOCRIME,
-          'usuarioId': 1,
-          'cep': this.dadosManipulando.CEP,
-          'endereco': this.dadosManipulando.ENDERECO,
-          'numero': this.dadosManipulando.NUMERO == null ? 0 : this.dadosManipulando.NUMERO,
-          'bairro': this.dadosManipulando.BAIRRO,
-          'complemento': this.dadosManipulando.COMPLEMENTO == null ? 0 : this.dadosManipulando.COMPLEMENTO,
-          'latitude': this.dadosManipulando.LATITUDE,
-          'longitude': this.dadosManipulando.LONGITUDE
-        }, 
-        {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-          // Adicione outros cabeçalhos necessários aqui
-        }
-        }).then(response => {
-            this.getDenuncias();
-            this.closeModal();
-        })
-        .catch(error => {
-          alert("Erro ao adicionar denúcias.")
-        });
       }
     },
 
@@ -205,7 +204,7 @@ export default {
     </div>
 
     <div class='thead'>
-      <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'><span>ID Denúncia</span></div>
+      <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 '><span>ID Denúncia</span></div>
       <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'><span>Endereço</span></div>
       <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'><span>Número</span></div>
       <div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2'><span>Complemento</span></div>

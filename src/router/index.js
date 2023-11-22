@@ -20,8 +20,6 @@ const token = localStorage.getItem('token')
 
       // console.log(payloadObject.UsuarioId);
       const user = payloadObject.UsuarioId
-      console.log(user)
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
