@@ -1,42 +1,37 @@
-# ProjetoIntegrador
+# Documentação do Projeto Vue.js
 
-GRUPO:
+## Visão Geral do Projeto
 
-  Carlos Eduardo Dias de Oliveira RA:1930548
-  Pedro Henrique Sartori Zilio RA:1944971
-  Luan Patrick Medeiros Alves RA:1943909
-  Lucas Gabriel dos Santos RA:
+O projeto é uma aplicação web desenvolvida com o framework Vue.js. Ele foi projetado para mostrar e orientar a população, mostrando em mapa onde é a região com mais criminalidade.
+
+## Estrutura do Projeto
+
+  src/ # Código-fonte da aplicação
+  |-- assets/ # Recursos estáticos como imagens, fontes, etc.
+  |-- components/ # Componentes Vue reutilizáveis
+  |-- views/ # Componentes de visualização principais
+  |-- services/ # Serviços para comunicação com a API ou lógica de negócios
+  |-- store/ # Vuex store para gerenciamento de estado global
+  |-- router/ # Configuração do Vue Router
+  |-- App.vue # Componente raiz da aplicação
+  |-- main.js # Arquivo principal de inicialização
+  public/ # Arquivos públicos acessíveis diretamente
+  |-- index.html # Página HTML principal
 
 
+## Pré-requisitos
+
+Antes de começar a trabalhar no projeto, certifique-se de ter as seguintes ferramentas instaladas:
+
+- [Node.js](https://nodejs.org/)
+
+## Configuração Inicial
+
+1. Clone este repositório:
+
+   ```bash
+   abra o cmd e digite - git clone https://github.com/carlosDias19/ProjetoIntegrador, cd ProjetoIntegrador, npm install e para rodar o projeto npm run dev e abra o localhost
 
 
-
-
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+# Roteamento com Vue Router
+  O roteamento da aplicação é gerenciado usando Vue Router. As configurações de rota estão no diretório router/.
