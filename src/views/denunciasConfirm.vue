@@ -300,12 +300,7 @@ export default {
 
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&subset=greek-ext');
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: rgb(2 6 23);
-    margin: 0;
-    padding: 0;
-}
+
 
 #main {
     margin: 10% auto 10% auto;

@@ -2,7 +2,7 @@
 
 ## Visão Geral do Projeto
 
-O projeto é uma aplicação web desenvolvida com o framework Vue.js. Ele foi projetado para mostrar e orientar a população, mostrando em mapa onde é a região com mais criminalidade.
+O projeto é uma aplicação web desenvolvida com o framework Vue.js.
 
 ## Estrutura do Projeto
 

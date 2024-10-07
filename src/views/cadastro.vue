@@ -85,7 +85,7 @@ export default {
     <div class="container-fluid h-custom">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-md-9 col-lg-6 col-xl-5">
-          <img src="/LogoCompleta.jpeg"
+          <img src="/Logo_sem_fundo.png"
             class="img-fluid" alt="Logo">
         </div>
         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
@@ -135,15 +135,6 @@ export default {
 <style>
 
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&subset=greek-ext');
-
-body{
-	background-position: center;
-    background-origin: content-box;
-    background-repeat: no-repeat;
-    background-size: cover;
-	min-height:100vh;
-	font-family: 'Noto Sans', sans-serif;
-}
 .text-center{
 	color:#fff;
     font-size: 23px;
